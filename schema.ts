@@ -37,6 +37,7 @@ scalar Hexadecimal
 scalar IBAN
 
 type Patient {
+  resourceType: String
   id: String
   identifier: [Identifier]
   active : Boolean

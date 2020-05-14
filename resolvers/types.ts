@@ -57,6 +57,7 @@ export type Coding ={
 
 export type Patient = {
   __typename?: 'Patient';
+  resourceType?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['String']>;
   identifier?: Maybe<Array<Maybe<Identifier>>>;
   active?: Maybe<Scalars['Boolean']>
