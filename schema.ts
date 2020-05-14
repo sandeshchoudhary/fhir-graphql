@@ -37,6 +37,7 @@ scalar Hexadecimal
 scalar IBAN
 
 type Patient {
+  id: String
   identifier: [Identifier]
   active : Boolean
   name: [HumanName]

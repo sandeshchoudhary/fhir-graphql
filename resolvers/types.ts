@@ -57,6 +57,7 @@ export type Coding ={
 
 export type Patient = {
   __typename?: 'Patient';
+  id?: Maybe<Scalars['String']>;
   identifier?: Maybe<Array<Maybe<Identifier>>>;
   active?: Maybe<Scalars['Boolean']>
   name?: Maybe<Array<Maybe<HumanName>>>;
@@ -114,7 +115,7 @@ export type Address = {
   text: Maybe<Scalars['String']>;
   line: Maybe<Array<Maybe<Scalars['String']>>>;
   city: Maybe<Scalars['String']>;
-  district: Maybe<Scalars['String']>;g
+  district: Maybe<Scalars['String']>;
   state: Maybe<Scalars['String']>;
   postalCode: Maybe<Scalars['String']>;
   country: Maybe<Scalars['String']>;
