@@ -4,5 +4,4 @@ node_modules
 .DS_Store
 .nuxt
 .next
-local.js
 yarn-error.log

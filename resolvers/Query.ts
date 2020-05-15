@@ -1,9 +1,11 @@
 import { QueryResolvers } from './types';
 
 const resolvers: QueryResolvers = {
-  async patients(_parent, {}, {getPatients}) {
-    const result = await getPatients();
-    return result.entry;
+  async patients(_parent, {next=""}, {getPatients, getNextPatients}) {
+    if(next=="") {
+      return await getPatients();
+    }
+    return await getNextPatients(next);
   },
 
   async patient(_parent, {id}, {getPatient}) {

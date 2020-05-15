@@ -11,6 +11,7 @@ export type Scalars = {
   Float: number;
   DateTime: Date;
   PositiveInt: number;
+  UnsignedInt: number;
 };
 
 export type HumanName = {
@@ -53,6 +54,24 @@ export type Coding ={
   code?: Maybe<Scalars['String']>;
   display?: Maybe<Scalars['String']>;
   userSelected?: Maybe<Scalars['Boolean']>;
+}
+
+export type Bundle = {
+  __typename?: 'Bundle';
+  resourceType?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  identifier?: Maybe<Array<Maybe<Identifier>>>;
+  type?: Maybe<any>;
+  timeStamp?: Maybe<Scalars['DateTime']>;
+  total?: Maybe<Scalars['UnsignedInt']>;
+  link?: Maybe<Array<Maybe<Link>>>;
+  entry?: Maybe<Array<Maybe<Entry>>>;
+}
+
+export type Link = {
+  __typename?: 'Link';
+  relation?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
 }
 
 export type Patient = {
@@ -137,16 +156,17 @@ export type Entry = {
   resource: Patient
 }
 
-export type QueryPatientsArgs = {}
+export type QueryPatientsArgs = {
+  next: Maybe<Scalars['String']>;
+}
 
 export type QueryPatientArgs = {
   id: Maybe<Scalars['String']>;
 }
 
-
 export type Query = {
    __typename?: 'Query';
-  patients?: Maybe<Array<Maybe<Entry>>>;
+  patients?: Maybe<Bundle>;
   patient?: Maybe<Patient>;
 };
 
