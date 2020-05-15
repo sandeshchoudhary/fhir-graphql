@@ -62,6 +62,7 @@ type Bundle {
   total: UnsignedInt
   link: [Link]
   entry: [Entry]
+  hasMore: Boolean
 }
 
 type Patient {

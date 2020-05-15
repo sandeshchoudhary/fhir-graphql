@@ -66,6 +66,7 @@ export type Bundle = {
   total?: Maybe<Scalars['UnsignedInt']>;
   link?: Maybe<Array<Maybe<Link>>>;
   entry?: Maybe<Array<Maybe<Entry>>>;
+  hasMore?: Maybe<Scalars['Boolean']>;
 }
 
 export type Link = {
