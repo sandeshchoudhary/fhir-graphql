@@ -1,16 +1,18 @@
 import { makeExecutableSchema, ApolloServer } from 'apollo-server-micro'
 import { default as typeDefs } from './schema'
+import { default as encounterTypeDefs } from './encounterSchema'
 import resolvers from './resolvers'
 import fetch from 'node-fetch'
 import microCors = require('micro-cors');
 
 const schema = makeExecutableSchema({
-  typeDefs,
+  typeDefs: [typeDefs, encounterTypeDefs],
   resolvers
 })
 
 let patients = null;
 let patient = null;
+let encounter = null;
 
 const server = new ApolloServer({
   schema,
@@ -20,7 +22,6 @@ const server = new ApolloServer({
     const {headers = {}} = req;
     
     const getPatients = async () => {
-      // if (patients) return patients;
       const res = await fetch('https://innotestfhir.azurehealthcareapis.com/Patient', {
         headers: {
           'Content-Type': 'application/json',
@@ -43,7 +44,6 @@ const server = new ApolloServer({
     }
 
     const getPatient = async (id: String) => {
-      // if (patient) return patient;
       const res = await fetch(`https://innotestfhir.azurehealthcareapis.com/Patient/${id}`, {
         headers: {
           'Content-Type': 'application/json',
@@ -53,11 +53,23 @@ const server = new ApolloServer({
       patient = await res.json();
       return patient;
     }
+
+    const getEncounter = async (id: String) => {
+      const res = await fetch(`https://innotestfhir.azurehealthcareapis.com/Encounter/${id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: headers.authorization
+        }
+      })
+      encounter = await res.json();
+      return encounter;
+    }
     
     return {
       getPatients,
       getNextPatients,
-      getPatient
+      getPatient,
+      getEncounter
     }
   },
 })

@@ -244,6 +244,7 @@ type Entry {
 type Query {
   patient(id: String): Patient
   patients(next: String): Bundle
+  encounter(id: String): Encounter
 }
 `
 

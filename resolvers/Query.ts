@@ -23,6 +23,11 @@ const resolvers: QueryResolvers = {
   async patient(_parent, {id}, {getPatient}) {
     const result = await getPatient(id);
     return result;
+  },
+
+  async encounter(_parent, {id}, {getEncounter}) {
+    const result = await getEncounter(id);
+    return result;
   }
 }
 

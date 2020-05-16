@@ -157,6 +157,90 @@ export type Entry = {
   resource: Patient
 }
 
+export type Encounter = {
+  __typename?: 'Encounter';
+  resourceType?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  identifier?: Maybe<Array<Maybe<Identifier>>>;
+  status?: Maybe<any>;
+  statusHistory?: Maybe<Array<Maybe<StatusHistory>>>;
+  class?: Maybe<Coding>;
+  classHistory?: Maybe<Array<Maybe<ClassHistory>>>;
+  type?: Maybe<Array<Maybe<CodeableConcept>>>;
+  serviceType?: Maybe<CodeableConcept>;
+  priority?: Maybe<CodeableConcept>;
+  subject?: Maybe<Reference>;
+  episodeOfCare?: Maybe<Array<Maybe<Reference>>>;
+  basedOn?: Maybe<Array<Maybe<Reference>>>;
+  participant?: Maybe<Array<Maybe<Participant>>>;
+  appointment?: Maybe<Array<Maybe<Reference>>>;
+  period?: Maybe<Period>;
+  length?: Maybe<Quantity>;
+  reasonCode?: Maybe<Array<Maybe<CodeableConcept>>>;
+  reasonReference?: Maybe<Array<Maybe<Reference>>>;
+  diagnosis?: Maybe<Array<Maybe<Diagnosis>>>;
+  account?: Maybe<Array<Maybe<Reference>>>;
+  hospitalization?: Maybe<Hospitalization>;
+  location?: Maybe<Array<Maybe<Location>>>;
+  serviceProvider?: Maybe<Reference>;
+  partOf?: Maybe<Reference>;
+}
+
+export type Location = {
+  __typeName?: 'Location';
+  status?: Maybe<any>;
+  physicalType?: Maybe<CodeableConcept>;
+  period?: Maybe<Period>;
+}
+
+export type Hospitalization = {
+  __typename?: 'Hospitalization';
+  preAdmissionIdentifier: Maybe<Identifier>;
+  origin?: Maybe<Reference>;
+  admitSource?: Maybe<CodeableConcept>;
+  reAdmission?: Maybe<CodeableConcept>;
+  dietPreference?: Maybe<Array<Maybe<CodeableConcept>>>;
+  specialCourtesy?: Maybe<Array<Maybe<CodeableConcept>>>;
+  specialArrangement?: Maybe<Array<Maybe<CodeableConcept>>>;
+  destination?: Maybe<Reference>;
+  dischargeDisposition?: Maybe<CodeableConcept>;
+}
+
+export type Diagnosis = {
+  __typename?: 'Diagnosis';
+  condition?: Maybe<Reference>;
+  use?: Maybe<CodeableConcept>;
+  rank?: Maybe<Scalars['PositiveInt']>;
+}
+
+export type Quantity = {
+  __typename?: 'Quantity';
+  value?: Maybe<Scalars['Float']>;
+  comparators?: Maybe<Scalars['String']>;
+  unit?: Maybe<Scalars['String']>;
+  system?: Maybe<Scalars['String']>;
+  code?: Maybe<Scalars['String']>;
+}
+
+export type Participant = {
+  __typename?: 'Participant';
+  type?: Maybe<Array<Maybe<CodeableConcept>>>;
+  period?: Maybe<Period>;
+  individual?: Maybe<Reference>;
+}
+
+export type ClassHistory = {
+  __typename?: 'ClassHistory';
+  class?: Maybe<CodeableConcept>;
+  period?: Maybe<Period>;
+}
+
+export type StatusHistory = {
+  __typename?: 'StatusHistory';
+  status?: Maybe<any>;
+  period?: Maybe<Period>;
+}
+
 export type QueryPatientsArgs = {
   next: Maybe<Scalars['String']>;
 }
@@ -165,10 +249,15 @@ export type QueryPatientArgs = {
   id: Maybe<Scalars['String']>;
 }
 
+export type QueryEncounterArgs = {
+  id: Maybe<Scalars['String']>;
+}
+
 export type Query = {
    __typename?: 'Query';
   patients?: Maybe<Bundle>;
   patient?: Maybe<Patient>;
+  encounter?: Maybe<Encounter>;
 };
 
 
@@ -251,6 +340,7 @@ export type ResolversTypes = {
   Float: ResolverTypeWrapper<Scalars['Float']>,
   Patient: ResolverTypeWrapper<Patient>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>
+  Encounter: ResolverTypeWrapper<Encounter>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -260,12 +350,14 @@ export type ResolversParentTypes = {
   Patient: Patient,
   Int: Scalars['Int'],
   Float: Scalars['Float'],
-  Boolean: Scalars['Boolean']
+  Boolean: Scalars['Boolean'],
+  Encounter: Encounter
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   patients?: Resolver<Maybe<Array<Maybe<ResolversTypes['Patient']>>>, ParentType, ContextType, RequireFields<QueryPatientsArgs, never>>,
-  patient?: Resolver<Maybe<ResolversTypes['Patient']>, ParentType, ContextType, RequireFields<QueryPatientArgs, never>>
+  patient?: Resolver<Maybe<ResolversTypes['Patient']>, ParentType, ContextType, RequireFields<QueryPatientArgs, never>>,
+  encounter?: Resolver<Maybe<ResolversTypes['Encounter']>, ParentType, ContextType, RequireFields<QueryEncounterArgs, never>>
 };
 
 
@@ -273,10 +365,15 @@ export type PatientResolver<ContextType = any, ParentType extends ResolversParen
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
+export type EncounterResolver<ContextType = any, ParentType extends ResolversParentTypes['Encounter'] = ResolversParentTypes['Encounter']> = {
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
 
 export type Resolvers<ContextType = any> = {
   PatientResolver?: PatientResolver<ContextType>,
   Query?: QueryResolvers<ContextType>
+  EncounterResolver?: EncounterResolver<ContextType>;
 };
 
 
