@@ -5,7 +5,7 @@ type Encounter {
     resourceType: String
     id: String
     identifier: [Identifier]
-    status: EncounterStatus
+    status: String
     statusHistory: [StatusHistory]
     class: Coding
     classHistory: [ClassHistory]
@@ -31,16 +31,9 @@ type Encounter {
 
 type Location {
     location: Reference
-    status: LocationStatus
+    status: String
     physicalType: CodeableConcept
     period: Period
-}
-
-enum LocationStatus {
-    planned
-    active
-    reserved
-    completed
 }
 
 type Hospitalization {
@@ -60,6 +53,7 @@ type Diagnosis {
     use: CodeableConcept
     rank: PositiveInt
 }
+
 type Quantity {
     value: Float
     comparator: String
@@ -80,22 +74,9 @@ type ClassHistory {
 }
 
 type StatusHistory {
-    status: EncounterStatus
+    status: String
     period: Period
 }
-
-enum EncounterStatus {
-    planned
-    arrived
-    triaged
-    "in-progress"
-    onleave
-    finished
-    cancelled
-    "entered-in-error"
-    unknown
-}
-
 
  `;
 

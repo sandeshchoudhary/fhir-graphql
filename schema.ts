@@ -36,18 +36,6 @@ scalar JSONObject
 scalar Hexadecimal
 scalar IBAN
 
-enum typeBundle {
-  document
-  message
-  transaction
-  "transaction-response"
-  batch
-  "batch-response"
-  history
-  searchset
-  collection
-}
-
 type Link {
   relation: String
   url: String
@@ -57,7 +45,7 @@ type Bundle {
   resourceType: String
   id: String
   identifier: [Identifier]
-  type: typeBundle
+  type: String
   timestamp: DateTime
   total: UnsignedInt
   link: [Link]
@@ -72,7 +60,7 @@ type Patient {
   active : Boolean
   name: [HumanName]
   telecom: [ContactPoint]
-  gender: Genders
+  gender: String
   birthDate: DateTime
   deceasedBoolean: Boolean
   deceasedDateTime: DateTime
@@ -89,14 +77,7 @@ type Patient {
 
 type LinkPatient {
   other: Reference
-  type: typeLinkPatient
-}
-
-enum typeLinkPatient {
-  "replaced-by"
-  replaces
-  refer
-  seealso
+  type: String
 }
 
 type Communication {
@@ -109,7 +90,7 @@ type Contact {
   name: HumanName
   telecom: [ContactPoint]
   address: Address
-  gender: Genders
+  gender: String
   organization: Reference
   period: Period
 }
@@ -122,8 +103,8 @@ type Reference {
 }
 
 type Address {
-  use: UsesAddress
-  type: typesAddress
+  use: String
+  type: String
   text: String
   line: [String]
   city: String
@@ -134,65 +115,16 @@ type Address {
   period: Period
 }
 
-enum typesAddress {
-  postal
-  physical
-  both
-}
-
-enum UsesAddress {
-  home
-  work
-  temp
-  old
-  billing
-}
-
-enum Genders {
-  male
-  female
-  other
-  unknown
-}
-
 type ContactPoint {
-  system: System
+  system: String
   value: String
-  use: UsesContact
+  use: String
   rank: PositiveInt
   period: Period
 }
 
-enum UsesContact{
-  home
-  work
-  temp
-  old
-  mobile
-}
-
-enum System {
-  phone
-  fax
-  email
-  pager
-  url
-  sms
-  other
-}
-
-enum UsesName {
-  usual
-  official
-  temp
-  nickname
-  anonymous
-  old
-  maiden
-}
-
 type HumanName {
-  use: UsesName
+  use: String
   text: String
   family: String
   given: [String]
@@ -201,21 +133,13 @@ type HumanName {
   period: Period
 }
 
-enum UsesIdentifier {
-  usual
-  official
-  temp
-  secondary
-  old
-}
-
  type Period {
    start: DateTime
    end: DateTime
  }
 
 type Identifier {
-  use: UsesIdentifier
+  use: String
   type: CodeableConcept
   system: String
   value: String
@@ -245,6 +169,9 @@ type Query {
   patient(id: String): Patient
   patients(next: String): Bundle
   encounter(id: String): Encounter
+  encounters(next: String): Bundle
+  medication(id: String): Medication
+  medications(next: String): Bundle
 }
 `
 
