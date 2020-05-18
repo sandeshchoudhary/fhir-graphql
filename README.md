@@ -1,4 +1,4 @@
-# CovidTracker GraphQL API
+# FHIR GraphQL API
 
 
 [![Deploy with ZEIT Now](https://zeit.co/button)](https://zeit.co/import/project?template=https://github.com/sandeshchoudhary/fhir-graphql)
