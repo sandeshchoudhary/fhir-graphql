@@ -31,6 +31,17 @@ const server = new ApolloServer({
       return patients;
     }
 
+    const getNextPatients = async (next: String) => {
+      const res = await fetch(`${next}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: headers.authorization
+        }
+      })
+      patients = await res.json();
+      return patients;
+    }
+
     const getPatient = async (id: String) => {
       // if (patient) return patient;
       const res = await fetch(`https://innotestfhir.azurehealthcareapis.com/Patient/${id}`, {
@@ -45,6 +56,7 @@ const server = new ApolloServer({
     
     return {
       getPatients,
+      getNextPatients,
       getPatient
     }
   },
