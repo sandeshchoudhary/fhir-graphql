@@ -36,6 +36,35 @@ scalar JSONObject
 scalar Hexadecimal
 scalar IBAN
 
+enum typeBundle {
+  document
+  message
+  transaction
+  "transaction-response"
+  batch
+  "batch-response"
+  history
+  searchset
+  collection
+}
+
+type Link {
+  relation: String
+  url: String
+}
+
+type Bundle {
+  resourceType: String
+  id: String
+  identifier: [Identifier]
+  type: typeBundle
+  timestamp: DateTime
+  total: UnsignedInt
+  link: [Link]
+  entry: [Entry]
+  hasMore: Boolean
+}
+
 type Patient {
   resourceType: String
   id: String
@@ -214,7 +243,7 @@ type Entry {
 
 type Query {
   patient(id: String): Patient
-  patients: [Entry]
+  patients(next: String): Bundle
 }
 `
 
