@@ -1,27 +1,33 @@
 import { QueryResolvers } from './types';
 
 const resolvers: QueryResolvers = {
-  async patients(_parent, {next=""}, {getPatients, getNextPatients}) {
-    var result;
-    if(next=="") {
-      result = await getPatients();
-    }
-    else{
-      result = await getNextPatients(next);
-    }
-    result.hasMore = false;
-    for (var i =0, l=result.link.length; i<l;i++){
-      var obj = result.link[i];
-      if(obj.relation=="next" && obj.url){
-        result.hasMore = true;
-        break;
-      }
-    }
+  async patients(_parent, {next=""}, {getPatients, getNext, getPaginated}) {
+    const result = await(getPaginated(getPatients, getNext, next));
     return result;
   },
 
   async patient(_parent, {id}, {getPatient}) {
     const result = await getPatient(id);
+    return result;
+  },
+
+  async encounter(_parent, {id}, {getEncounter}) {
+    const result = await getEncounter(id);
+    return result;
+  },
+
+  async encounters(_parent, {next=""}, {getEncounters, getNext, getPaginated}) {
+    const result = await(getPaginated(getEncounters, getNext, next));
+    return result;
+  },
+
+  async medication(_parent, {id}, {getEncounter}) {
+    const result = await getEncounter(id);
+    return result;
+  },
+
+  async medications(_parent, {next=""}, {getMedications, getNext, getPaginated}) {
+    const result = await(getPaginated(getMedications, getNext, next));
     return result;
   }
 }
