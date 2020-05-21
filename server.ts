@@ -45,10 +45,9 @@ const server = new ApolloServer({
     }
     
     const getPatients = async () => {
-      const res = await fetch('https://innotestfhir.azurehealthcareapis.com/Patient', {
+      const res = await fetch('https://r4.smarthealthit.org/Patient', {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: headers.authorization
         }
       })
       patients = await res.json();
@@ -59,7 +58,6 @@ const server = new ApolloServer({
       const res = await fetch(`${next}`, {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: headers.authorization
         }
       })
       patients = await res.json();
@@ -67,10 +65,9 @@ const server = new ApolloServer({
     }
 
     const getPatient = async (id: String) => {
-      const res = await fetch(`https://innotestfhir.azurehealthcareapis.com/Patient/${id}`, {
+      const res = await fetch(`https://r4.smarthealthit.org/Patient/${id}`, {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: headers.authorization
         }
       })
       patient = await res.json();
@@ -78,10 +75,9 @@ const server = new ApolloServer({
     }
 
     const getEncounter = async (id: String) => {
-      const res = await fetch(`https://innotestfhir.azurehealthcareapis.com/Encounter/${id}`, {
+      const res = await fetch(`https://r4.smarthealthit.org/Encounter/${id}`, {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: headers.authorization
         }
       })
       encounter = await res.json();
@@ -89,10 +85,9 @@ const server = new ApolloServer({
     }
 
     const getEncounters = async () => {
-      const res = await fetch('https://innotestfhir.azurehealthcareapis.com/Encounter', {
+      const res = await fetch('https://r4.smarthealthit.org/Encounter', {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: headers.authorization
         }
       })
       encounters = await res.json();
@@ -100,10 +95,9 @@ const server = new ApolloServer({
     }
 
     const getMedication = async (id:String) => {
-      const res = await fetch(`https://innotestfhir.azurehealthcareapis.com/Medication/${id}`, {
+      const res = await fetch(`https://r4.smarthealthit.org/Medication/${id}`, {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: headers.authorization
         }
       })
       medication = await res.json();
@@ -111,10 +105,9 @@ const server = new ApolloServer({
     }
     
     const getMedications = async () => {
-      const res = await fetch('https://innotestfhir.azurehealthcareapis.com/Medication', {
+      const res = await fetch('https://r4.smarthealthit.org/Medication', {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: headers.authorization
         }
       })
       medications = await res.json();

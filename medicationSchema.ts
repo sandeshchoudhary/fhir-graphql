@@ -16,7 +16,7 @@ type Medication {
 
 type Batch {
     lotNumber: String
-    expirationDate: DateTime
+    expirationDate: String
 }
 
 type Ingredient {

@@ -27,8 +27,8 @@ export type HumanName = {
 
 export type Period = {
   __typename?: 'Period';
-  start?: Maybe<Scalars['DateTime']>;
-  end?: Maybe<Scalars['DateTime']>;
+  start?: Maybe<Scalars['String']>;
+  end?: Maybe<Scalars['String']>;
 }
 
 export type Identifier = {
@@ -62,7 +62,7 @@ export type Bundle = {
   id?: Maybe<Scalars['String']>;
   identifier?: Maybe<Array<Maybe<Identifier>>>;
   type?: Maybe<Scalars['String']>;
-  timeStamp?: Maybe<Scalars['DateTime']>;
+  timeStamp?: Maybe<Scalars['String']>;
   total?: Maybe<Scalars['UnsignedInt']>;
   link?: Maybe<Array<Maybe<Link>>>;
   entry?: Maybe<Array<Maybe<Entry>>>;
@@ -84,9 +84,9 @@ export type Patient = {
   name?: Maybe<Array<Maybe<HumanName>>>;
   telecom?: Maybe<Array<Maybe<ContactPoint>>>;
   gender?: Maybe<Scalars['String']>;
-  birthDate?: Maybe<Scalars['DateTime']>;
+  birthDate?: Maybe<Scalars['String']>;
   deceasedBoolean: Maybe<Scalars['Boolean']>;
-  deceasedDateTime: Maybe<Scalars['DateTime']>;
+  deceasedDateTime: Maybe<Scalars['String']>;
   address: Maybe<Array<Maybe<Address>>>;
   maritalStatus: Maybe<CodeableConcept>;
   multipleBirthBoolean: Maybe<Scalars['Boolean']>;
@@ -252,8 +252,14 @@ export type Medication = {
   form?: Maybe<CodeableConcept>;
   amount?: Maybe<Ratio>;
   ingredients?: Maybe<Array<Maybe<Ingredient>>>;
+  batch?: Maybe<Batch>;
 }
 
+export type Batch = {
+  __typename?: 'Batch';
+  lotNumber?: Maybe<Scalars['String']>;
+  expirationDate?: Maybe<Scalars['String']>;
+}
 export type Ingredient = {
   __typename?: 'Ingredient';
   itemCodeableConcept?: Maybe<CodeableConcept>;

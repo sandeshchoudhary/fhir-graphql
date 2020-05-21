@@ -46,7 +46,7 @@ type Bundle {
   id: String
   identifier: [Identifier]
   type: String
-  timestamp: DateTime
+  timestamp: String
   total: UnsignedInt
   link: [Link]
   entry: [Entry]
@@ -61,9 +61,9 @@ type Patient {
   name: [HumanName]
   telecom: [ContactPoint]
   gender: String
-  birthDate: DateTime
+  birthDate: String
   deceasedBoolean: Boolean
-  deceasedDateTime: DateTime
+  deceasedDateTime: String
   address: [Address]
   maritalStatus: CodeableConcept
   multipleBirthBoolean: Boolean
@@ -134,8 +134,8 @@ type HumanName {
 }
 
  type Period {
-   start: DateTime
-   end: DateTime
+   start: String
+   end: String
  }
 
 type Identifier {
