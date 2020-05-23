@@ -4,6 +4,13 @@ const schema = gql`
 type Encounter {
     resourceType: String
     id: String
+    meta: Meta
+    implicitRules: String
+    language: String
+    text: String
+    contained: [Resource]
+    extension: [Extension]
+    modifierExtension: [Extension]
     identifier: [Identifier]
     status: String
     statusHistory: [StatusHistory]

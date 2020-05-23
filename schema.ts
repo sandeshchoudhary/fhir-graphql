@@ -53,11 +53,44 @@ type Bundle {
   hasMore: Boolean
 }
 
+type Meta {
+  versionId: String
+  lastUpdated: String
+  source: String
+  profile: String
+  security: Coding
+  tag: Coding
+}
+
+type Resource {
+  id: String
+  meta: Meta
+  implicitRules: String
+  language: String
+}
+
+type Extension {
+  extension: [Extension]
+  url: String
+  valueCode: String
+  valueString: String
+  valueCoding: Coding
+  valueAddress: Address
+  valueDecimal: Float
+}
+
 type Patient {
   resourceType: String
   id: String
+  meta: Meta
+  implicitRules: String
+  language: String
+  text: String
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
   identifier: [Identifier]
-  active : Boolean
+  active: Boolean
   name: [HumanName]
   telecom: [ContactPoint]
   gender: String
@@ -172,6 +205,8 @@ type Query {
   encounters(next: String): Bundle
   medication(id: String): Medication
   medications(next: String): Bundle
+  medicationRequest(id: String): MedicationRequest
+  medicationRequests(next:String): Bundle
 }
 `
 

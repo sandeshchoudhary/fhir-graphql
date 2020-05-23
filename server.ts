@@ -2,12 +2,13 @@ import { makeExecutableSchema, ApolloServer } from 'apollo-server-micro'
 import { default as typeDefs } from './schema'
 import { default as encounterTypeDefs } from './encounterSchema'
 import { default as medicationTypeDefs } from './medicationSchema'
+import { default as medicationRequestSchema } from './medicationRequestSchema'
 import resolvers from './resolvers'
 import fetch from 'node-fetch'
 import microCors = require('micro-cors');
 
 const schema = makeExecutableSchema({
-  typeDefs: [typeDefs, encounterTypeDefs, medicationTypeDefs],
+  typeDefs: [typeDefs, encounterTypeDefs, medicationTypeDefs, medicationRequestSchema],
   resolvers
 })
 
@@ -17,6 +18,8 @@ let encounter = null;
 let medication = null;
 let encounters = null;
 let medications = null;
+let medicationRequest =null;
+let medicationRequests = null;
 
 const server = new ApolloServer({
   schema,
@@ -114,6 +117,26 @@ const server = new ApolloServer({
       return medications;
     }
 
+    const getMedicationRequest = async (id: String) => {
+      const res = await fetch(`https://r4.smarthealthit.org/MedicationRequest/${id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      medicationRequests = await res.json();
+      return medicationRequests;
+    }
+
+    const getMedicationRequests = async () => {
+      const res = await fetch(`https://r4.smarthealthit.org/MedicationRequest`, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      medicationRequest = await res.json();
+      return medicationRequest;
+    }
+
     return {
       getPaginated,
       getPatients,
@@ -122,7 +145,9 @@ const server = new ApolloServer({
       getEncounter,
       getEncounters,
       getMedication,
-      getMedications
+      getMedications,
+      getMedicationRequest,
+      getMedicationRequests
     }
   },
 })
