@@ -207,6 +207,8 @@ type Query {
   medications(next: String): Bundle
   medicationRequest(id: String): MedicationRequest
   medicationRequests(next:String): Bundle
+  medicationAdministration(id: String): MedicationAdministration
+  medicationAdministrations(next: String): Bundle
 }
 `
 

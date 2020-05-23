@@ -3,12 +3,14 @@ import { default as typeDefs } from './schema'
 import { default as encounterTypeDefs } from './encounterSchema'
 import { default as medicationTypeDefs } from './medicationSchema'
 import { default as medicationRequestSchema } from './medicationRequestSchema'
+import { default as medicationDispenseSchema } from './medicationDispenseSchema'
+import { default as medicationAdministrationSchema } from './medicationAdministrationSchema'
 import resolvers from './resolvers'
 import fetch from 'node-fetch'
 import microCors = require('micro-cors');
 
 const schema = makeExecutableSchema({
-  typeDefs: [typeDefs, encounterTypeDefs, medicationTypeDefs, medicationRequestSchema],
+  typeDefs: [typeDefs, encounterTypeDefs, medicationTypeDefs, medicationRequestSchema, medicationDispenseSchema, medicationAdministrationSchema],
   resolvers
 })
 
@@ -18,8 +20,10 @@ let encounter = null;
 let medication = null;
 let encounters = null;
 let medications = null;
-let medicationRequest =null;
+let medicationRequest = null;
 let medicationRequests = null;
+let medicationDispense = null;
+let medicationDispenses = null;
 
 const server = new ApolloServer({
   schema,
@@ -137,6 +141,26 @@ const server = new ApolloServer({
       return medicationRequest;
     }
 
+    const getMedicationDispense = async (id: String) => {
+      const res = await fetch(`https://r4.smarthealthit.org/MedicationDispense/${id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      medicationRequests = await res.json();
+      return medicationRequests;
+    }
+
+    const getMedicationDispenses = async () => {
+      const res = await fetch(`https://r4.smarthealthit.org/MedicationDispenses`, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      medicationDispenses = await res.json();
+      return medicationDispenses;
+    }
+
     return {
       getPaginated,
       getPatients,
@@ -147,7 +171,9 @@ const server = new ApolloServer({
       getMedication,
       getMedications,
       getMedicationRequest,
-      getMedicationRequests
+      getMedicationRequests,
+      getMedicationDispense,
+      getMedicationDispenses
     }
   },
 })
