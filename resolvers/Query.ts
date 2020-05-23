@@ -21,8 +21,8 @@ const resolvers: QueryResolvers = {
     return result;
   },
 
-  async medication(_parent, {id}, {getEncounter}) {
-    const result = await getEncounter(id);
+  async medication(_parent, {id}, {getMedication}) {
+    const result = await getMedication(id);
     return result;
   },
 
@@ -38,6 +38,16 @@ const resolvers: QueryResolvers = {
 
   async medicationRequest(_parent, {id}, {getMedicationRequest}) {
     const result = await getMedicationRequest(id);
+    return result;
+  },
+
+  async medicationStatement(_parent, {id}, {getMedicationStatement}) {
+    const result = await getMedicationStatement(id);
+    return result;
+  },
+
+  async medicationStatements(_parent, {next=""}, {getMedicationStatements, getNext, getPaginated}) {
+    const result = await(getPaginated(getMedicationStatements, getNext, next));
     return result;
   }
 }

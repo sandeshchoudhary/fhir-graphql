@@ -1,16 +1,17 @@
 import { makeExecutableSchema, ApolloServer } from 'apollo-server-micro'
-import { default as typeDefs } from './schema'
-import { default as encounterTypeDefs } from './encounterSchema'
-import { default as medicationTypeDefs } from './medicationSchema'
-import { default as medicationRequestSchema } from './medicationRequestSchema'
-import { default as medicationDispenseSchema } from './medicationDispenseSchema'
-import { default as medicationAdministrationSchema } from './medicationAdministrationSchema'
+import { default as typeDefs } from './Schema/schema'
+import { default as encounterTypeDefs } from './Schema/encounterSchema'
+import { default as medicationTypeDefs } from './Schema/medicationSchema'
+import { default as medicationRequestSchema } from './Schema/medicationRequestSchema'
+import { default as medicationDispenseSchema } from './Schema/medicationDispenseSchema'
+import { default as medicationAdministrationSchema } from './Schema/medicationAdministrationSchema'
+import { default as medicationStatementSchema } from './Schema/medicationStatementSchema'
 import resolvers from './resolvers'
 import fetch from 'node-fetch'
 import microCors = require('micro-cors');
 
 const schema = makeExecutableSchema({
-  typeDefs: [typeDefs, encounterTypeDefs, medicationTypeDefs, medicationRequestSchema, medicationDispenseSchema, medicationAdministrationSchema],
+  typeDefs: [typeDefs, encounterTypeDefs, medicationTypeDefs, medicationRequestSchema, medicationDispenseSchema, medicationAdministrationSchema, medicationStatementSchema ],
   resolvers
 })
 
@@ -24,6 +25,8 @@ let medicationRequest = null;
 let medicationRequests = null;
 let medicationDispense = null;
 let medicationDispenses = null;
+let medicationStatement = null;
+let medicationStatements = null;
 
 const server = new ApolloServer({
   schema,
@@ -147,8 +150,8 @@ const server = new ApolloServer({
           'Content-Type': 'application/json',
         }
       })
-      medicationRequests = await res.json();
-      return medicationRequests;
+      medicationDispense = await res.json();
+      return medicationDispense;
     }
 
     const getMedicationDispenses = async () => {
@@ -159,6 +162,26 @@ const server = new ApolloServer({
       })
       medicationDispenses = await res.json();
       return medicationDispenses;
+    }
+
+    const getMedicationStatement = async (id:String) => {
+      const res = await fetch(`https://r4.smarthealthit.org/MedicationStatement/${id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      medication = await res.json();
+      return medication;
+    }
+    
+    const getMedicationStatements = async () => {
+      const res = await fetch('https://r4.smarthealthit.org/MedicationStatement', {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      medications = await res.json();
+      return medications;
     }
 
     return {
@@ -173,7 +196,9 @@ const server = new ApolloServer({
       getMedicationRequest,
       getMedicationRequests,
       getMedicationDispense,
-      getMedicationDispenses
+      getMedicationDispenses,
+      getMedicationStatement,
+      getMedicationStatements
     }
   },
 })

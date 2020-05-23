@@ -560,6 +560,38 @@ export type MADosage = {
   rateQuantity?: Maybe<Quantity>;
 }
 
+export type MedicationStatement = {
+  __typename?: "MedicationStatement";
+  resourceType?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  meta?: Maybe<Meta>;
+  implicitRules?: Maybe<Scalars['String']>;
+  language?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
+  contained?: Maybe<Array<Maybe<Resource>>>;
+  extension?: Maybe<Array<Maybe<Extension>>>;
+  modifierExtension?: Maybe<Array<Maybe<Extension>>>;
+  identifier?: Maybe<Array<Maybe<Identifier>>>;
+  basedOn?: Maybe<Array<Maybe<Reference>>>;
+  partOf?: Maybe<Array<Maybe<Reference>>>;
+  status?: Maybe<Scalars['String']>;
+  statusReason?: Maybe<Array<Maybe<CodeableConcept>>>;
+  category?: Maybe<CodeableConcept>;
+  medicationCodeableConcept?: Maybe<CodeableConcept>;
+  medicationReference?: Maybe<Reference>;
+  subject?: Maybe<Reference>;
+  context?: Maybe<Reference>;
+  effectiveDateTime?: Maybe<Scalars['String']>;
+  effectivePeriod?: Maybe<Period>;
+  dateAsserted?: Maybe<Scalars['String']>;
+  informationSource?: Maybe<Reference>;
+  derivedFrom?: Maybe<Array<Maybe<Reference>>>;
+  reasonCode?: Maybe<Array<Maybe<CodeableConcept>>>;
+  reasonReference?: Maybe<Array<Maybe<Reference>>>;
+  note?: Maybe<Array<Maybe<Annotation>>>;
+  dosage?: Maybe<Array<Maybe<Dosage>>>;
+}
+
 export type QueryPatientsArgs = {
   next: Maybe<Scalars['String']>;
 }
@@ -608,6 +640,14 @@ export type QueryMedicationAdministrationArgs = {
   id: Maybe<Scalars['String']>;
 }
 
+export type QueryMedicationStatementArgs = {
+  id: Maybe<Scalars['String']>;
+}
+
+export type QueryMedicationStatementsArgs = {
+  next: Maybe<Scalars['String']>;
+}
+
 export type Query = {
    __typename?: 'Query';
   patients?: Maybe<Bundle>;
@@ -622,6 +662,8 @@ export type Query = {
   medicationDispenses?: Maybe<Bundle>;
   medicationAdministration?: Maybe<MedicationAdministration>;
   medicationAdministrations?: Maybe<Bundle>;
+  medicationStatement?: Maybe<Medication>;
+  medicationStatements?: Maybe<Bundle>;
 };
 
 
@@ -709,7 +751,8 @@ export type ResolversTypes = {
   Medication: ResolverTypeWrapper<Medication>,
   MedicationRequest: ResolverTypeWrapper<MedicationRequest>,
   MedicationDispense: ResolverTypeWrapper<MedicationDispense>,
-  MedicationAdministration: ResolverTypeWrapper<MedicationAdministration>
+  MedicationAdministration: ResolverTypeWrapper<MedicationAdministration>,
+  MedicationStatement: ResolverTypeWrapper<MedicationStatement>
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -725,7 +768,8 @@ export type ResolversParentTypes = {
   Bundle: Bundle,
   MedicationRequest: MedicationRequest,
   MedicationDispense: MedicationDispense,
-  MedicationAdministration: MedicationAdministration
+  MedicationAdministration: MedicationAdministration,
+  MedicationStatement: MedicationStatement
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
@@ -740,7 +784,9 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   medicationDispenses?: Resolver<Maybe<Array<Maybe<ResolversTypes['Bundle']>>>, ParentType, ContextType, RequireFields<QueryMedicationDispensesArgs, never>>,
   medicationDispense?: Resolver<Maybe<Array<Maybe<ResolversTypes['MedicationDispense']>>>, ParentType, ContextType, RequireFields<QueryMedicationDispenseArgs, never>>,
   medicationAdministrations?: Resolver<Maybe<Array<Maybe<ResolversTypes['Bundle']>>>, ParentType, ContextType, RequireFields<QueryMedicationAdministrationsArgs, never>>,
-  medicationAdministration?: Resolver<Maybe<Array<Maybe<ResolversTypes['MedicationAdministration']>>>, ParentType, ContextType, RequireFields<QueryMedicationAdministrationArgs, never>>
+  medicationAdministration?: Resolver<Maybe<Array<Maybe<ResolversTypes['MedicationAdministration']>>>, ParentType, ContextType, RequireFields<QueryMedicationAdministrationArgs, never>>,
+  medicationStatement?: Resolver<Maybe<ResolversTypes['MedicationStatement']>, ParentType, ContextType, RequireFields<QueryMedicationStatementArgs, never>>,
+  medicationStatements?: Resolver<Maybe<Array<Maybe<ResolversTypes['Bundle']>>>, ParentType, ContextType, RequireFields<QueryMedicationStatementsArgs, never>>
 };
 
 
@@ -772,6 +818,10 @@ export type MedicationAdministrationResolver<ContextType = any, ParentType exten
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
+export type MedicationStatementResolver<ContextType = any, ParentType extends ResolversParentTypes['Medication'] = ResolversParentTypes['Medication']> = {
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
 export type Resolvers<ContextType = any> = {
   PatientResolver?: PatientResolver<ContextType>,
   Query?: QueryResolvers<ContextType>
@@ -781,6 +831,7 @@ export type Resolvers<ContextType = any> = {
   MedicationRequest?: MedicationRequestResolver<ContextType>;
   MedicationDispense?: MedicationDispenseResolver<ContextType>;
   MedicationAdministration?: MedicationAdministrationResolver<ContextType>;
+  MedicationStatementResolver?: MedicationStatementResolver<ContextType>;
 };
 
 
