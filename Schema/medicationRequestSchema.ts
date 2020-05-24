@@ -7,7 +7,7 @@ type MedicationRequest {
     meta: Meta
     implicitRules: String
     language: String
-    text: String
+    text: Narrative
     contained: [Resource]
     extension: [Extension]
     modifierExtension: [Extension]
@@ -30,8 +30,8 @@ type MedicationRequest {
     performer: Reference
     performerType: CodeableConcept
     recorder: Reference
-    reasonCode: CodeableConcept
-    reasonReference: Reference
+    reasonCode: [CodeableConcept]
+    reasonReference: [Reference]
     instantiatesCanonical: [String]
     instantiatesUri: [String]
     basedOn: [Reference]

@@ -2,13 +2,13 @@ import { gql } from 'apollo-server-micro';
 
 const schema = gql`
 
-type medicationDispense {
+type MedicationDispense {
     resourceType: String
     id: String
     meta: Meta
     implicitRules: String
     language: String
-    text: String
+    text: Narrative
     contained: [Resource]
     extension: [Extension]
     modifierExtension: [Extension]
@@ -43,6 +43,7 @@ type medicationDispense {
 type MDSubstitution {
     wasSubstituted: Boolean
     type: CodeableConcept
+    reason: [CodeableConcept]
     responsibleParty: [Reference]
 }
 

@@ -19,9 +19,16 @@ export type Meta = {
   versionId?: Maybe<Scalars['String']>;
   lastUpdated?: Maybe<Scalars['String']>;
   source: Maybe<Scalars['String']>;
-  profile: Maybe<Scalars['String']>;
-  security: Maybe<Coding>;
-  tag: Maybe<Coding>;
+  profile: Maybe<Array<Maybe<Scalars['String']>>>;
+  security: Maybe<Array<Maybe<Coding>>>;
+  tag: Maybe<Array<Maybe<Coding>>>;
+}
+
+export type Narrative = {
+  __typename?: "Narrative";
+  extension?: Maybe<Array<Maybe<Extension>>>;
+  status?: Maybe<Scalars['String']>;
+  div?: Maybe<Scalars['String']>;
 }
 
 export type HumanName = {
@@ -110,7 +117,7 @@ export type Patient = {
   meta?: Maybe<Meta>;
   implicitRules?: Maybe<Scalars['String']>;
   language?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
+  text?: Maybe<Narrative>;
   contained?: Maybe<Array<Maybe<Resource>>>;
   extension?: Maybe<Array<Maybe<Extension>>>;
   modifierExtension?: Maybe<Array<Maybe<Extension>>>;
@@ -199,7 +206,7 @@ export type Encounter = {
   meta?: Maybe<Meta>;
   implicitRules?: Maybe<Scalars['String']>;
   language?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
+  text?: Maybe<Narrative>;
   contained?: Maybe<Array<Maybe<Resource>>>;
   extension?: Maybe<Array<Maybe<Extension>>>;
   modifierExtension?: Maybe<Array<Maybe<Extension>>>;
@@ -290,7 +297,7 @@ export type Medication = {
   meta?: Maybe<Meta>;
   implicitRules?: Maybe<Scalars['String']>;
   language?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
+  text?: Maybe<Narrative>;
   contained?: Maybe<Array<Maybe<Resource>>>;
   extension?: Maybe<Array<Maybe<Extension>>>;
   modifierExtension?: Maybe<Array<Maybe<Extension>>>;
@@ -330,7 +337,7 @@ export type MedicationRequest = {
   meta?: Maybe<Meta>;
   implicitRules?: Maybe<Scalars['String']>;
   language?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
+  text?: Maybe<Narrative>;
   contained?: Maybe<Array<Maybe<Resource>>>;
   extension?: Maybe<Array<Maybe<Extension>>>;
   modifierExtension?: Maybe<Array<Maybe<Extension>>>;
@@ -468,7 +475,7 @@ export type MedicationDispense = {
   meta?: Maybe<Meta>;
   implicitRules?: Maybe<Scalars['String']>;
   language?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
+  text?: Maybe<Narrative>;
   contained?: Maybe<Array<Maybe<Resource>>>;
   extension?: Maybe<Array<Maybe<Extension>>>;
   modifierExtension?: Maybe<Array<Maybe<Extension>>>;
@@ -522,7 +529,7 @@ export type MedicationAdministration = {
   meta?: Maybe<Meta>;
   implicitRules?: Maybe<Scalars['String']>;
   language?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
+  text?: Maybe<Narrative>;
   contained?: Maybe<Array<Maybe<Resource>>>;
   extension?: Maybe<Array<Maybe<Extension>>>;
   modifierExtension?: Maybe<Array<Maybe<Extension>>>;
@@ -567,7 +574,7 @@ export type MedicationStatement = {
   meta?: Maybe<Meta>;
   implicitRules?: Maybe<Scalars['String']>;
   language?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
+  text?: Maybe<Narrative>;
   contained?: Maybe<Array<Maybe<Resource>>>;
   extension?: Maybe<Array<Maybe<Extension>>>;
   modifierExtension?: Maybe<Array<Maybe<Extension>>>;

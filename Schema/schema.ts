@@ -57,9 +57,9 @@ type Meta {
   versionId: String
   lastUpdated: String
   source: String
-  profile: String
-  security: Coding
-  tag: Coding
+  profile: [String]
+  security: [Coding]
+  tag: [Coding]
 }
 
 type Resource {
@@ -85,7 +85,7 @@ type Patient {
   meta: Meta
   implicitRules: String
   language: String
-  text: String
+  text: Narrative
   contained: [Resource]
   extension: [Extension]
   modifierExtension: [Extension]
@@ -106,6 +106,12 @@ type Patient {
   generalPractitioner: [Reference]
   managingOrganization: Reference
   link: [LinkPatient]
+}
+
+type Narrative {
+  extension: [Extension]
+  status: String
+  div: String
 }
 
 type LinkPatient {
@@ -211,6 +217,8 @@ type Query {
   medicationAdministrations(next: String): Bundle
   medicationStatement(id: String): MedicationStatement
   medicationStatements(next: String): Bundle
+  medicationDispenses(next: String): Bundle
+  medicationDispense(id: String): MedicationDispense
 }
 `
 

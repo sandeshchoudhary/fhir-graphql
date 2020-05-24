@@ -49,7 +49,19 @@ const resolvers: QueryResolvers = {
   async medicationStatements(_parent, {next=""}, {getMedicationStatements, getNext, getPaginated}) {
     const result = await(getPaginated(getMedicationStatements, getNext, next));
     return result;
+  },
+
+  async medicationDispense(_parent, {id}, {getMedicationDispense}) {
+    const result = await getMedicationDispense(id);
+    return result;
+  },
+
+  async medicationDispenses(_parent, {next=""}, {getMedicationDispenses, getNext, getPaginated}) {
+    const result = await(getPaginated(getMedicationDispenses, getNext, next));
+    return result;
   }
+
+  
 }
 
 export default resolvers 

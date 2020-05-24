@@ -7,7 +7,7 @@ type Encounter {
     meta: Meta
     implicitRules: String
     language: String
-    text: String
+    text: Narrative
     contained: [Resource]
     extension: [Extension]
     modifierExtension: [Extension]
