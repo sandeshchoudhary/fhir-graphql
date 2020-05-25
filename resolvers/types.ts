@@ -599,8 +599,14 @@ export type MedicationStatement = {
   dosage?: Maybe<Array<Maybe<Dosage>>>;
 }
 
+export type SearchParam = {
+  name?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['String']>;
+}
+
 export type QueryPatientsArgs = {
   next: Maybe<Scalars['String']>;
+  searchParams: Maybe<Array<Maybe<SearchParam>>>;
 }
 
 export type QueryPatientArgs = {
@@ -613,6 +619,7 @@ export type QueryEncounterArgs = {
 
 export type QueryEncountersArgs = {
   next: Maybe<Scalars['String']>;
+  searchParams: Maybe<Array<Maybe<SearchParam>>>;
 }
 
 export type QueryMedicationArgs = {
@@ -621,10 +628,12 @@ export type QueryMedicationArgs = {
 
 export type QueryMedicationsArgs = {
   next: Maybe<Scalars['String']>;
+  searchParams: Maybe<Array<Maybe<SearchParam>>>;
 }
 
 export type QueryMedicationRequestsArgs = {
   next: Maybe<Scalars['String']>;
+  searchParams: Maybe<Array<Maybe<SearchParam>>>;
 }
 
 export type QueryMedicationRequestArgs = {
@@ -633,6 +642,7 @@ export type QueryMedicationRequestArgs = {
 
 export type QueryMedicationDispensesArgs = {
   next: Maybe<Scalars['String']>;
+  searchParams: Maybe<Array<Maybe<SearchParam>>>;
 }
 
 export type QueryMedicationDispenseArgs = {
@@ -641,6 +651,7 @@ export type QueryMedicationDispenseArgs = {
 
 export type QueryMedicationAdministrationsArgs = {
   next: Maybe<Scalars['String']>;
+  searchParams: Maybe<Array<Maybe<SearchParam>>>;
 }
 
 export type QueryMedicationAdministrationArgs = {
@@ -653,6 +664,7 @@ export type QueryMedicationStatementArgs = {
 
 export type QueryMedicationStatementsArgs = {
   next: Maybe<Scalars['String']>;
+  searchParams: Maybe<Array<Maybe<SearchParam>>>;
 }
 
 export type Query = {

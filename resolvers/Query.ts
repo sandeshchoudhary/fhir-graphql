@@ -1,63 +1,63 @@
 import { QueryResolvers } from './types';
 
 const resolvers: QueryResolvers = {
-  async patients(_parent, {next=""}, {getPatients, getNext, getPaginated}) {
-    const result = await(getPaginated(getPatients, getNext, next));
+  async patients(_parent, {next = "", searchParams = null}, {getResources, getNext, getPaginated}) {
+    const result = await(getPaginated(getResources, getNext, next, searchParams, '/Patient'));
     return result;
   },
 
-  async patient(_parent, {id}, {getPatient}) {
-    const result = await getPatient(id);
+  async patient(_parent, {id}, {getResource}) {
+    const result = await getResource(id, '/Patient');
     return result;
   },
 
-  async encounter(_parent, {id}, {getEncounter}) {
-    const result = await getEncounter(id);
+  async encounter(_parent, {id}, {getResource}) {
+    const result = await getResource(id, '/Encounter');
     return result;
   },
 
-  async encounters(_parent, {next=""}, {getEncounters, getNext, getPaginated}) {
-    const result = await(getPaginated(getEncounters, getNext, next));
+  async encounters(_parent, {next="", searchParams = null}, {getResources, getNext, getPaginated}) {
+    const result = await(getPaginated(getResources, getNext, next, searchParams, '/Encounter'))
     return result;
   },
 
-  async medication(_parent, {id}, {getMedication}) {
-    const result = await getMedication(id);
+  async medication(_parent, {id}, {getResource}) {
+    const result = await getResource(id, '/Medication');
     return result;
   },
 
-  async medications(_parent, {next=""}, {getMedications, getNext, getPaginated}) {
-    const result = await(getPaginated(getMedications, getNext, next));
+  async medications(_parent, {next="", searchParams = null}, {getResources, getNext, getPaginated}) {
+    const result = await(getPaginated(getResources, getNext, next, searchParams, '/Medication'));
     return result;
   },
 
-  async medicationRequests(_parent, {next=""}, {getMedicationRequests, getNext, getPaginated}){
-    const reuslt = await(getPaginated(getMedicationRequests, getNext, next));
-    return reuslt;
-  },
-
-  async medicationRequest(_parent, {id}, {getMedicationRequest}) {
-    const result = await getMedicationRequest(id);
+  async medicationRequests(_parent, {next="", searchParams = null}, {getResources, getNext, getPaginated}){
+    const result = await(getPaginated(getResources, getNext, next, searchParams, '/MedicationRequest'));
     return result;
   },
 
-  async medicationStatement(_parent, {id}, {getMedicationStatement}) {
-    const result = await getMedicationStatement(id);
+  async medicationRequest(_parent, {id}, {getResource}) {
+    const result = await getResource(id, '/MedicationResource');
     return result;
   },
 
-  async medicationStatements(_parent, {next=""}, {getMedicationStatements, getNext, getPaginated}) {
-    const result = await(getPaginated(getMedicationStatements, getNext, next));
+  async medicationStatement(_parent, {id}, {getResource}) {
+    const result = await getResource(id, '/MedicationStatement');
     return result;
   },
 
-  async medicationDispense(_parent, {id}, {getMedicationDispense}) {
-    const result = await getMedicationDispense(id);
+  async medicationStatements(_parent, {next="", searchParams = null}, {getResources, getNext, getPaginated}) {
+    const result = await(getPaginated(getResources, getNext, next, searchParams, '/MedicationStatement'));
     return result;
   },
 
-  async medicationDispenses(_parent, {next=""}, {getMedicationDispenses, getNext, getPaginated}) {
-    const result = await(getPaginated(getMedicationDispenses, getNext, next));
+  async medicationDispense(_parent, {id}, {getResource}) {
+    const result = await getResource(id, '/MedicationDispense');
+    return result;
+  },
+
+  async medicationDispenses(_parent, {next="", searchParams = null}, {getResources, getNext, getPaginated}) {
+    const result = await(getPaginated(getResources, getNext, next, searchParams, '/MedicationDispense'));
     return result;
   }
 

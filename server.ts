@@ -6,27 +6,20 @@ import { default as medicationRequestSchema } from './Schema/medicationRequestSc
 import { default as medicationDispenseSchema } from './Schema/medicationDispenseSchema'
 import { default as medicationAdministrationSchema } from './Schema/medicationAdministrationSchema'
 import { default as medicationStatementSchema } from './Schema/medicationStatementSchema'
+import {default as searchSchema } from './Schema/searchSchema'
 import resolvers from './resolvers'
 import fetch from 'node-fetch'
 import microCors = require('micro-cors');
 
 const schema = makeExecutableSchema({
-  typeDefs: [typeDefs, encounterTypeDefs, medicationTypeDefs, medicationRequestSchema, medicationDispenseSchema, medicationAdministrationSchema, medicationStatementSchema ],
+  typeDefs: [typeDefs, encounterTypeDefs, medicationTypeDefs, medicationRequestSchema, medicationDispenseSchema, medicationAdministrationSchema, medicationStatementSchema,searchSchema ],
   resolvers
 })
 
-let patients = null;
-let patient = null;
-let encounter = null;
-let medication = null;
-let encounters = null;
-let medications = null;
-let medicationRequest = null;
-let medicationRequests = null;
-let medicationDispense = null;
-let medicationDispenses = null;
-let medicationStatement = null;
-let medicationStatements = null;
+let resource = null;
+let resources = null;
+
+let baseUrl = 'https://r4.smarthealthit.org';
 
 const server = new ApolloServer({
   schema,
@@ -35,10 +28,10 @@ const server = new ApolloServer({
   context({req}) {
     const {headers = {}} = req;
 
-    const getPaginated = async (first, remaining, next="") => {
+    const getPaginated = async (first, remaining, next="", searchParams = null, url = null) => {
       var result;
       if(next=="") {
-        result = await first();
+        result = await first(searchParams, url);
       }
       else{
         result = await remaining(next);
@@ -54,14 +47,34 @@ const server = new ApolloServer({
       return result;
     }
     
-    const getPatients = async () => {
-      const res = await fetch('https://r4.smarthealthit.org/Patient', {
+    const getResources =  async (searchParams, url) => {
+      url = baseUrl + url;
+      if (searchParams){
+        url = url +'?';
+        const l = searchParams.length;
+        for(var i=0; i<l; i++){
+          url = url + `${searchParams[i].name}=${searchParams[i].value}&`;
+        }
+        const sl = url.length;
+        url = url.slice(0, sl-1);
+      }
+      const res = await fetch(url, {
         headers: {
           'Content-Type': 'application/json',
         }
       })
-      patients = await res.json();
-      return patients;
+      resources = await res.json();
+      return resources;
+    }
+
+    const getResource = async (id: String, url:String) => {
+      const res = await fetch(baseUrl + url+`/${id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      resource = await res.json();
+      return resource;
     }
 
     const getNext = async (next: String) => {
@@ -70,135 +83,15 @@ const server = new ApolloServer({
           'Content-Type': 'application/json',
         }
       })
-      patients = await res.json();
-      return patients;
-    }
-
-    const getPatient = async (id: String) => {
-      const res = await fetch(`https://r4.smarthealthit.org/Patient/${id}`, {
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      })
-      patient = await res.json();
-      return patient;
-    }
-
-    const getEncounter = async (id: String) => {
-      const res = await fetch(`https://r4.smarthealthit.org/Encounter/${id}`, {
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      })
-      encounter = await res.json();
-      return encounter;
-    }
-
-    const getEncounters = async () => {
-      const res = await fetch('https://r4.smarthealthit.org/Encounter', {
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      })
-      encounters = await res.json();
-      return encounters;
-    }
-
-    const getMedication = async (id:String) => {
-      const res = await fetch(`https://r4.smarthealthit.org/Medication/${id}`, {
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      })
-      medication = await res.json();
-      return medication;
+      resource = await res.json();
+      return resource;
     }
     
-    const getMedications = async () => {
-      const res = await fetch('https://r4.smarthealthit.org/Medication', {
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      })
-      medications = await res.json();
-      return medications;
-    }
-
-    const getMedicationRequest = async (id: String) => {
-      const res = await fetch(`https://r4.smarthealthit.org/MedicationRequest/${id}`, {
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      })
-      medicationRequests = await res.json();
-      return medicationRequests;
-    }
-
-    const getMedicationRequests = async () => {
-      const res = await fetch(`https://r4.smarthealthit.org/MedicationRequest`, {
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      })
-      medicationRequest = await res.json();
-      return medicationRequest;
-    }
-
-    const getMedicationDispense = async (id: String) => {
-      const res = await fetch(`https://r4.smarthealthit.org/MedicationDispense/${id}`, {
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      })
-      medicationDispense = await res.json();
-      return medicationDispense;
-    }
-
-    const getMedicationDispenses = async () => {
-      const res = await fetch(`https://r4.smarthealthit.org/MedicationDispenses`, {
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      })
-      medicationDispenses = await res.json();
-      return medicationDispenses;
-    }
-
-    const getMedicationStatement = async (id:String) => {
-      const res = await fetch(`https://r4.smarthealthit.org/MedicationStatement/${id}`, {
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      })
-      medication = await res.json();
-      return medication;
-    }
-    
-    const getMedicationStatements = async () => {
-      const res = await fetch('https://r4.smarthealthit.org/MedicationStatement', {
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      })
-      medications = await res.json();
-      return medications;
-    }
-
     return {
       getPaginated,
-      getPatients,
       getNext,
-      getPatient,
-      getEncounter,
-      getEncounters,
-      getMedication,
-      getMedications,
-      getMedicationRequest,
-      getMedicationRequests,
-      getMedicationDispense,
-      getMedicationDispenses,
-      getMedicationStatement,
-      getMedicationStatements
+      getResources,
+      getResource
     }
   },
 })

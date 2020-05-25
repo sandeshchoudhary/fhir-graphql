@@ -206,18 +206,18 @@ type Entry {
 
 type Query {
   patient(id: String): Patient
-  patients(next: String): Bundle
+  patients(next: String, searchParams: [SearchParam]): Bundle
   encounter(id: String): Encounter
-  encounters(next: String): Bundle
+  encounters(next: String, searchParams: [SearchParam]): Bundle
   medication(id: String): Medication
-  medications(next: String): Bundle
+  medications(next: String, searchParams: [SearchParam]): Bundle
   medicationRequest(id: String): MedicationRequest
-  medicationRequests(next:String): Bundle
+  medicationRequests(next:String, searchParams: [SearchParam]): Bundle
   medicationAdministration(id: String): MedicationAdministration
-  medicationAdministrations(next: String): Bundle
+  medicationAdministrations(next: String, searchParams: [SearchParam]): Bundle
   medicationStatement(id: String): MedicationStatement
-  medicationStatements(next: String): Bundle
-  medicationDispenses(next: String): Bundle
+  medicationStatements(next: String, searchParams: [SearchParam]): Bundle
+  medicationDispenses(next: String, searchParams: [SearchParam]): Bundle
   medicationDispense(id: String): MedicationDispense
 }
 `
