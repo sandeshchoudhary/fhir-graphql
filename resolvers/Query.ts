@@ -59,7 +59,17 @@ const resolvers: QueryResolvers = {
   async medicationDispenses(_parent, {next="", searchParams = null}, {getResources, getNext, getPaginated}) {
     const result = await(getPaginated(getResources, getNext, next, searchParams, '/MedicationDispense'));
     return result;
-  }
+  },
+
+  async medicationAdministrations(_parent, {next="", searchParams = null}, {getResources, getNext, getPaginated}){
+    const result = await(getPaginated(getResources, getNext, next, searchParams, '/MedicationAdministration'));
+    return result;
+  },
+
+  async medicationAdministration(_parent, {id}, {getResource}) {
+    const result = await getResource(id, '/MedicationAdministration');
+    return result;
+  },
 
   
 }
