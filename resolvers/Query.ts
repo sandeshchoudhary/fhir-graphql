@@ -59,6 +59,16 @@ const resolvers: QueryResolvers = {
   async medicationDispenses(_parent, {next=""}, {getMedicationDispenses, getNext, getPaginated}) {
     const result = await(getPaginated(getMedicationDispenses, getNext, next));
     return result;
+  },
+
+  async medicationAdministration(_parent, {id}, {getMedicationAdministration}) {
+    const result = await getMedicationAdministration(id);
+    return result;
+  },
+
+  async medicationAdministrations(_parent, {next=""}, {getMedicationAdministrations, getNext, getPaginated}) {
+    const result = await(getPaginated(getMedicationAdministrations, getNext, next));
+    return result;
   }
 
   

@@ -184,6 +184,26 @@ const server = new ApolloServer({
       return medications;
     }
 
+    const getMedicationAdministration = async (id:String) => {
+      const res = await fetch(`https://r4.smarthealthit.org/MedicationAdministration/${id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      medication = await res.json();
+      return medication;
+    }
+    
+    const getMedicationAdministrations = async () => {
+      const res = await fetch('https://r4.smarthealthit.org/MedicationAdministration', {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      medications = await res.json();
+      return medications;
+    }
+
     return {
       getPaginated,
       getPatients,
@@ -198,7 +218,9 @@ const server = new ApolloServer({
       getMedicationDispense,
       getMedicationDispenses,
       getMedicationStatement,
-      getMedicationStatements
+      getMedicationStatements,
+      getMedicationAdministration,
+      getMedicationAdministrations
     }
   },
 })
