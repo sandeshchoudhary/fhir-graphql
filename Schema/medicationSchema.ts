@@ -4,6 +4,13 @@ const schema = gql`
 type Medication {
     resourceType: String
     id: String
+    meta: Meta
+    implicitRules: String
+    language: String
+    text: Narrative
+    contained: [Resource]
+    extension: [Extension]
+    modifierExtension: [Extension]
     identifier: [Identifier]
     code: CodeableConcept
     status: String

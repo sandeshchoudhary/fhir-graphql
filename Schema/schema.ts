@@ -53,11 +53,44 @@ type Bundle {
   hasMore: Boolean
 }
 
+type Meta {
+  versionId: String
+  lastUpdated: String
+  source: String
+  profile: [String]
+  security: [Coding]
+  tag: [Coding]
+}
+
+type Resource {
+  id: String
+  meta: Meta
+  implicitRules: String
+  language: String
+}
+
+type Extension {
+  extension: [Extension]
+  url: String
+  valueCode: String
+  valueString: String
+  valueCoding: Coding
+  valueAddress: Address
+  valueDecimal: Float
+}
+
 type Patient {
   resourceType: String
   id: String
+  meta: Meta
+  implicitRules: String
+  language: String
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
   identifier: [Identifier]
-  active : Boolean
+  active: Boolean
   name: [HumanName]
   telecom: [ContactPoint]
   gender: String
@@ -73,6 +106,12 @@ type Patient {
   generalPractitioner: [Reference]
   managingOrganization: Reference
   link: [LinkPatient]
+}
+
+type Narrative {
+  extension: [Extension]
+  status: String
+  div: String
 }
 
 type LinkPatient {
@@ -172,6 +211,14 @@ type Query {
   encounters(next: String): Bundle
   medication(id: String): Medication
   medications(next: String): Bundle
+  medicationRequest(id: String): MedicationRequest
+  medicationRequests(next:String): Bundle
+  medicationAdministration(id: String): MedicationAdministration
+  medicationAdministrations(next: String): Bundle
+  medicationStatement(id: String): MedicationStatement
+  medicationStatements(next: String): Bundle
+  medicationDispenses(next: String): Bundle
+  medicationDispense(id: String): MedicationDispense
 }
 `
 
